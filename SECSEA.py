@@ -198,6 +198,8 @@ if start_date and end_date:
     # =====================================================
 # STYLE FUNCTION (MOVE THIS UP)
 # =====================================================
+    st.markdown("---")
+    st.subheader("📋 Seasonal Return Table")
 
     def style_cells(val):
         if pd.isna(val):
@@ -235,30 +237,6 @@ if start_date and end_date:
 
 
 
-    # =====================================================
-    # TABLE VIEW
-    # =====================================================
-
-    st.markdown("---")
-    st.subheader("📋 Seasonal Return Table")
-
-    def style_cells(val):
-        if pd.isna(val):
-            return ""
-
-        if val > 10:
-            return "background-color:#004d00;color:white"
-        elif val > 5:
-            return "background-color:#006600;color:white"
-        elif val > 0:
-            return "background-color:#00b300;color:black"
-        elif val < -10:
-            return "background-color:#660000;color:white"
-        elif val < -5:
-            return "background-color:#990000;color:white"
-        elif val < 0:
-            return "background-color:#ff4d4d;color:black"
-        return ""
 
     st.dataframe(
         df_seasonal.style.applymap(style_cells),
