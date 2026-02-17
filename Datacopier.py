@@ -1,47 +1,55 @@
 import os
+import shutil
 import requests
+import zipfile
+import io
 
-# ============================================
+# ========================================
 # CONFIG
-# ============================================
-OWNER = "username"
-REPO = "source-repo"
-BRANCH = "main"
-FOLDER_PATH = "data_folder"  # folder inside source repo
-DESTINATION = "downloaded_data"
+# ========================================
 
-# ============================================
-# FUNCTION TO DOWNLOAD FOLDER
-# ============================================
+SOURCE_REPO_ZIP = "https://github.com/EGAVSIV/Stock_Scanner_With_ASTA_Parameters/archive/refs/heads/main.zip"
 
-def download_folder(owner, repo, path, branch, local_dir):
-    api_url = f"https://api.github.com/repos/{owner}/{repo}/contents/{path}?ref={branch}"
-    response = requests.get(api_url)
+SOURCE_FOLDER_PATH = "Stock_Scanner_With_ASTA_Parameters-main/market_data/sector_index/D"
+DESTINATION_FOLDER = "D"
+
+
+# ========================================
+# DOWNLOAD & COPY FUNCTION
+# ========================================
+
+def sync_folder():
+    print("📥 Downloading source repository...")
+
+    response = requests.get(SOURCE_REPO_ZIP)
     response.raise_for_status()
 
-    os.makedirs(local_dir, exist_ok=True)
+    print("📦 Extracting files...")
+    zip_file = zipfile.ZipFile(io.BytesIO(response.content))
+    zip_file.extractall("temp_repo")
 
-    for item in response.json():
-        if item["type"] == "file":
-            download_url = item["download_url"]
-            file_content = requests.get(download_url).content
+    source_full_path = os.path.join("temp_repo", SOURCE_FOLDER_PATH)
 
-            with open(os.path.join(local_dir, item["name"]), "wb") as f:
-                f.write(file_content)
+    if not os.path.exists(source_full_path):
+        raise Exception("❌ Source D folder not found!")
 
-        elif item["type"] == "dir":
-            download_folder(
-                owner,
-                repo,
-                item["path"],
-                branch,
-                os.path.join(local_dir, item["name"])
-            )
+    # Remove old D folder if exists
+    if os.path.exists(DESTINATION_FOLDER):
+        print("🗑 Removing old D folder...")
+        shutil.rmtree(DESTINATION_FOLDER)
 
-# ============================================
+    print("📁 Copying D folder...")
+    shutil.copytree(source_full_path, DESTINATION_FOLDER)
+
+    # Cleanup
+    shutil.rmtree("temp_repo")
+
+    print("✅ D folder successfully synced!")
+
+
+# ========================================
 # RUN
-# ============================================
+# ========================================
 
 if __name__ == "__main__":
-    download_folder(OWNER, REPO, FOLDER_PATH, BRANCH, DESTINATION)
-    print("✅ Folder downloaded successfully!")
+    sync_folder()
