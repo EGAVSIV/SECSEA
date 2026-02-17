@@ -235,15 +235,6 @@ if start_date and end_date:
         height=500
     )
 
-
-
-
-    st.dataframe(
-        df_seasonal.style.applymap(style_cells),
-        use_container_width=True,
-        height=500
-    )
-
     # =====================================================
     # HEATMAP
     # =====================================================
