@@ -2,10 +2,8 @@ name: Sync D Folder From Source Repo
 
 on:
   schedule:
-    # Runs at 10:30 UTC = 4:00 PM IST (Mon-Fri)
-    - cron: '30 10 * * 1-5'
-  
-  workflow_dispatch:  # Manual trigger
+    - cron: '30 10 * * 1-5'   # 4:00 PM IST (Mon-Fri)
+  workflow_dispatch:
 
 jobs:
   sync-folder:
@@ -24,7 +22,7 @@ jobs:
         run: pip install requests
 
       - name: 🔄 Run Sync Script
-        run: Datacopier.py
+        run: python Datacopier.py
 
       - name: 📤 Commit & Push Changes
         run: |
