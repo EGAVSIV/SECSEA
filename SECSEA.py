@@ -216,7 +216,12 @@ if start_date and end_date:
 # STYLE FUNCTION (MOVE THIS UP)
 # =====================================================
     st.markdown("---")
-    st.subheader("📋 Seasonal Return Table")
+
+    st.subheader(
+        f"📋 Seasonal Return Table "
+        f"({start_date.strftime('%d %b')} - {end_date.strftime('%d %b')})"
+    )
+
 
     def style_cells(val):
         if pd.isna(val):
