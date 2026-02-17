@@ -196,6 +196,10 @@ if start_date and end_date:
         st.stop()
 
     # Force numeric rounding
+    df_seasonal = pd.DataFrame(seasonal_data).T
+    df_seasonal = df_seasonal[sorted(df_seasonal.columns, reverse=True)]
+    df_seasonal = df_seasonal.sort_index()
+
     df_seasonal = df_seasonal.astype(float).round(2)
 
     st.dataframe(
