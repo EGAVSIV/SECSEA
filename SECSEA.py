@@ -5,6 +5,8 @@ import plotly.express as px
 from datetime import datetime
 import numpy as np
 import base64
+from datetime import timedelta
+from dateutil.relativedelta import relativedelta
 
 # =====================================================
 # CONFIG
@@ -159,13 +161,28 @@ def compute_strength_model(df):
 # USER INPUT
 # =====================================================
 
+
+
 col1, col2 = st.columns(2)
 
+# Default start = today
+default_start = datetime.today().date()
+
 with col1:
-    start_date = st.date_input("Select Start Date (Month & Day)")
+    start_date = st.date_input(
+        "Select Start Date (Month & Day)",
+        value=default_start
+    )
+
+# Automatically set end = 1 month after start
+default_end = start_date + relativedelta(months=1)
 
 with col2:
-    end_date = st.date_input("Select End Date (Month & Day)")
+    end_date = st.date_input(
+        "Select End Date (Month & Day)",
+        value=default_end
+    )
+
 
 # =====================================================
 # MAIN LOGIC
