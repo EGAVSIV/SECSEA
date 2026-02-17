@@ -1,0 +1,41 @@
+name: Sync D Folder From Source Repo
+
+on:
+  schedule:
+    # Runs at 10:30 UTC = 4:00 PM IST (Mon-Fri)
+    - cron: '30 10 * * 1-5'
+  
+  workflow_dispatch:  # Manual trigger
+
+jobs:
+  sync-folder:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 📥 Checkout SECSEA Repo
+        uses: actions/checkout@v4
+
+      - name: 🐍 Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: 📦 Install Dependencies
+        run: pip install requests
+
+      - name: 🔄 Run Sync Script
+        run: python sync_d_folder.py
+
+      - name: 📤 Commit & Push Changes
+        run: |
+          git config --global user.name "github-actions"
+          git config --global user.email "actions@github.com"
+          
+          git add D
+          
+          if git diff --cached --quiet; then
+            echo "No changes detected."
+          else
+            git commit -m "Auto-sync D folder (Mon-Fri 4PM IST)"
+            git push
+          fi
