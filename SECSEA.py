@@ -199,6 +199,10 @@ if start_date and end_date:
     df_seasonal = df_seasonal[sorted(df_seasonal.columns, reverse=True)]
     df_seasonal = df_seasonal.sort_index()
 
+    # ✅ Restrict to 2 decimals
+    df_seasonal = df_seasonal.round(2)
+
+
     # =====================================================
     # TABLE VIEW
     # =====================================================
