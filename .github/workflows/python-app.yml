@@ -24,7 +24,7 @@ jobs:
         run: pip install requests
 
       - name: 🔄 Run Sync Script
-        run: python sync_d_folder.py
+        run: Datacopier.py
 
       - name: 📤 Commit & Push Changes
         run: |
