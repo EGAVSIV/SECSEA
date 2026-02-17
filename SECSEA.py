@@ -25,14 +25,8 @@ if not os.path.exists(SECTOR_PATH):
     st.error(f"❌ Sector folder not found: {SECTOR_PATH}")
     st.stop()
 
-st.markdown(
-    """
-    <h1 style="color: blue; font-weight: 700; margin-bottom: 0.2rem;">
-        📊 Multi-Timeframe Stock Screener
-    </h1>
-    """,
-    unsafe_allow_html=True,
-)
+
+BASE_PATH = os.path.dirname(__file__)
 bg_path = os.path.join(BASE_PATH, "Assets", "BG11.png")
 
 if os.path.exists(bg_path):
