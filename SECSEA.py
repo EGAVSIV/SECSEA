@@ -16,27 +16,6 @@ st.set_page_config(
     page_icon="📆"
 )
 
-st.title("📆 Sector Seasonality Intelligence Engine")
-
-# 🔥 UPDATED PATH (Using Local D Folder)
-SECTOR_PATH = "D"
-
-if not os.path.exists(SECTOR_PATH):
-    st.error(f"❌ Sector folder not found: {SECTOR_PATH}")
-    st.stop()
-
-
-BASE_PATH = os.path.dirname(__file__)
-bg_path = os.path.join(BASE_PATH, "Assets", "BG11.png")
-
-if os.path.exists(bg_path):
-    set_bg_image(bg_path)
-
-
-# =====================================================
-# HELPER FUNCTIONS
-# =====================================================
-
 def set_bg_image(image_path: str):
     with open(image_path, "rb") as f:
         encoded = base64.b64encode(f.read()).decode()
@@ -55,6 +34,45 @@ def set_bg_image(image_path: str):
         """,
         unsafe_allow_html=True,
     )
+
+# =====================================================
+# APPLY BACKGROUND
+# =====================================================
+
+BASE_PATH = os.path.dirname(__file__)
+bg_path = os.path.join(BASE_PATH, "Assets", "BG11.png")
+
+if os.path.exists(bg_path):
+    set_bg_image(bg_path)
+else:
+    st.warning(f"Background not found at: {bg_path}")
+
+# =====================================================
+# TITLE
+# =====================================================
+
+st.title("📆 Sector Seasonality Intelligence Engine")
+
+# =====================================================
+# DATA PATH
+# =====================================================
+
+
+# 🔥 UPDATED PATH (Using Local D Folder)
+SECTOR_PATH = "D"
+
+if not os.path.exists(SECTOR_PATH):
+    st.error(f"❌ Sector folder not found: {SECTOR_PATH}")
+    st.stop()
+
+
+
+
+# =====================================================
+# HELPER FUNCTIONS
+# =====================================================
+
+
 
 def get_nearest_available_date(df, target_date):
 
