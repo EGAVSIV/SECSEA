@@ -195,6 +195,29 @@ if start_date and end_date:
         st.warning("No seasonal data found.")
         st.stop()
 
+    # =====================================================
+# STYLE FUNCTION (MOVE THIS UP)
+# =====================================================
+
+    def style_cells(val):
+        if pd.isna(val):
+            return ""
+
+        if val > 10:
+            return "background-color:#004d00;color:white"
+        elif val > 5:
+            return "background-color:#006600;color:white"
+        elif val > 0:
+            return "background-color:#00b300;color:black"
+        elif val < -10:
+            return "background-color:#660000;color:white"
+        elif val < -5:
+            return "background-color:#990000;color:white"
+        elif val < 0:
+            return "background-color:#ff4d4d;color:black"
+        return ""
+
+
     # Force numeric rounding
     df_seasonal = pd.DataFrame(seasonal_data).T
     df_seasonal = df_seasonal[sorted(df_seasonal.columns, reverse=True)]
