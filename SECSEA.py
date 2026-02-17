@@ -227,19 +227,13 @@ if start_date and end_date:
 
     df_seasonal = df_seasonal.astype(float).round(2)
 
-    st.dataframe(
-        df_seasonal.style
-            .format("{:.2f}")
-            .applymap(style_cells)
-            .set_properties(**{
-                "text-align": "center"
-            })
-            .set_table_styles([
-                dict(selector="th", props=[("text-align", "center")])
-            ]),
-        use_container_width=True,
-        height=500
-    )
+    st.write(
+    df_seasonal.style
+        .format("{:.2f}")
+        .applymap(style_cells)
+        .set_properties(**{"text-align": "center"})
+        .set_table_styles([dict(selector="th", props=[("text-align", "center")])])
+)
 
 
     # =====================================================
