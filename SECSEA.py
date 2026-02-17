@@ -195,12 +195,17 @@ if start_date and end_date:
         st.warning("No seasonal data found.")
         st.stop()
 
-    df_seasonal = pd.DataFrame(seasonal_data).T
-    df_seasonal = df_seasonal[sorted(df_seasonal.columns, reverse=True)]
-    df_seasonal = df_seasonal.sort_index()
+    # Force numeric rounding
+    df_seasonal = df_seasonal.astype(float).round(2)
 
-    # ✅ Restrict to 2 decimals
-    df_seasonal = df_seasonal.round(2)
+    st.dataframe(
+        df_seasonal.style
+            .format("{:.2f}")   # 🔥 This forces 2 decimal display
+            .applymap(style_cells),
+        use_container_width=True,
+        height=500
+    )
+
 
 
     # =====================================================
