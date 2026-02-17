@@ -4,6 +4,7 @@ import os
 import plotly.express as px
 from datetime import datetime
 import numpy as np
+import base64
 
 # =====================================================
 # CONFIG
@@ -27,6 +28,25 @@ if not os.path.exists(SECTOR_PATH):
 # =====================================================
 # HELPER FUNCTIONS
 # =====================================================
+
+def set_bg_image(image_path: str):
+    with open(image_path, "rb") as f:
+        encoded = base64.b64encode(f.read()).decode()
+
+    st.markdown(
+        f"""
+        <style>
+        .stApp {{
+            background-image: url("data:image/png;base64,{encoded}");
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+        }}
+        </style>
+        """,
+        unsafe_allow_html=True,
+    )
 
 def get_nearest_available_date(df, target_date):
 
