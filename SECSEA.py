@@ -287,7 +287,12 @@ if start_date and end_date:
     # =====================================================
 
     st.markdown("---")
-    st.subheader("🚀 Sector Strength Model")
+ 
+
+    st.subheader(
+    f"🚀 Sector Strength Model"
+    f"({start_date.strftime('%d %b %Y')} - {end_date.strftime('%d %b %Y')})"
+    )
 
     df_strength = compute_strength_model(df_seasonal)
 
