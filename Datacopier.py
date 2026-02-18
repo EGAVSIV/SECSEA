@@ -8,9 +8,9 @@ import io
 # CONFIG
 # ========================================
 
-SOURCE_REPO_ZIP = "https://github.com/EGAVSIV/Stock_Scanner_With_ASTA_Parameters/archive/refs/heads/main.zip"
+SOURCE_REPO_ZIP = "https://github.com/EGAVSIV/GEOTRADER/archive/refs/heads/main.zip"
 
-SOURCE_FOLDER_PATH = "Stock_Scanner_With_ASTA_Parameters-main/market_data/sector_index/D"
+SOURCE_FOLDER_PATH = "GEOTRADER-main/market_data/sector_index/D"
 DESTINATION_FOLDER = "D"
 
 
